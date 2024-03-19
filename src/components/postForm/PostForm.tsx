@@ -27,7 +27,7 @@ export default function PostForm() {
     }
  
     return (
-        <form className="mx-auto flex w-full gap-3 border p-3 md:w-6/12 lg:w-4/12">
+        <form className="flex w-full gap-3 border p-3 ">
             <Image className="self-start" src={profileImage} alt="profile image" width={40} height={40} />
             <section className="flex w-full flex-col gap-3">
                 <textarea 
@@ -35,7 +35,8 @@ export default function PostForm() {
                     className="h-5 w-full resize-none overflow-auto border-none bg-black text-white outline-none" 
                     name="postText"
                     maxLength={280}
-                    placeholder="O que está acontecendo"
+                    placeholder="O que está acontecendo?"
+                    value={textArea}
                     ref={textAreaRef}
                     onChange={handleChange}
                 />
