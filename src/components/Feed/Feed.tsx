@@ -25,8 +25,8 @@ export default function Feed() {
                 itemsArr.push({ 
                     id: doc.id,
                     postText: doc.data().postText,
-                    userImage: doc.data().userImage,
-                    userName: doc.data().userName
+                    userImage: doc.data().user?.photoURL,
+                    userName: doc.data().user?.displayName
                 });
             });
 
