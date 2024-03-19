@@ -1,31 +1,33 @@
 "use client";
 
-import React, { useRef, useState } from "react";
-import Image from "next/image";
+import React, { useEffect, useRef, useState } from "react";
 import profileImage from "../../../public/profile-default.svg";
+import Image from "next/image";
+import addPost from "@/api/addPost";
 
 export default function PostForm() {
     const [textArea, setTextArea] = useState("");
     const textAreaRef = useRef<HTMLTextAreaElement>(null);
 
-    function autoGrow() {
+    useEffect(() => {
         if (textAreaRef.current) {
             textAreaRef.current.style.height = "5px";
             textAreaRef.current.style.height = `${textAreaRef.current.scrollHeight}px`;
         }
-    }
+    }, [textArea]);
 
     function handleChange(event: React.ChangeEvent<HTMLTextAreaElement>) {
         setTextArea(event.target.value);
-        autoGrow();
     }
 
-    function post() {
-        console.log(textArea);
+    async function handlePost() {
+        if (textArea.length >= 281 || textArea.length === 0) return;
+        addPost(textArea);
+        setTextArea("");
     }
  
     return (
-        <form className="flex w-full gap-3 border p-3">
+        <form className="mx-auto flex w-full gap-3 border p-3 md:w-6/12 lg:w-4/12">
             <Image className="self-start" src={profileImage} alt="profile image" width={40} height={40} />
             <section className="flex w-full flex-col gap-3">
                 <textarea 
@@ -35,7 +37,6 @@ export default function PostForm() {
                     maxLength={280}
                     placeholder="O que está acontecendo"
                     ref={textAreaRef}
-                    onInput={autoGrow}
                     onChange={handleChange}
                 />
 
@@ -46,7 +47,7 @@ export default function PostForm() {
                     <button 
                         className="rounded-full bg-blue-500/95 px-3 py-1 font-semibold text-white hover:bg-blue-600/95"
                         type="button" 
-                        onClick={post}
+                        onClick={handlePost}
                     >
                         Postar
                     </button>
