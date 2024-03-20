@@ -1,34 +1,30 @@
 "use client";
 
 import React, { useEffect, useState } from "react";
-import "./Feed.css";
 import { collection, onSnapshot, query } from "firebase/firestore";
+import PostCard, { IPostCard } from "../PostCard/PostCard";
 import db from "@/firebase";
-import PostCard from "../PostCard/PostCard";
-
-interface IPosts {
-    id: string,
-    postText: string,
-    userImage: string,
-    userName: string
-}
+import "./Feed.css";
 
 export default function Feed() {
-    const [posts, setPosts] = useState<IPosts[]>();
+    const [posts, setPosts] = useState<IPostCard[]>([]);
 
     useEffect(() => {
         const q = query(collection(db, "posts"));
         const unsubscribe = onSnapshot(q, (querySnapshot) => {
-            const itemsArr: IPosts[] = [];
+            const itemsArr: IPostCard[] = [];
 
             querySnapshot.forEach((doc) => {
                 itemsArr.push({ 
                     id: doc.id,
                     postText: doc.data().postText,
                     userImage: doc.data().user?.photoURL,
-                    userName: doc.data().user?.displayName
+                    userName: doc.data().user?.displayName,
+                    date: doc.data().createdAt
                 });
             });
+
+            itemsArr.sort((a, b) => a.date && b.date ? b.date.seconds - a.date.seconds : 0);
 
             setPosts(itemsArr);
         });
