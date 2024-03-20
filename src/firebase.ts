@@ -1,3 +1,7 @@
+import dotenv from "dotenv";
+
+dotenv.config();
+
 // Import the functions you need from the SDKs you need
 import { initializeApp } from "firebase/app";
 import { getAuth, GoogleAuthProvider } from "firebase/auth";
@@ -8,12 +12,12 @@ import { getFirestore } from "firebase/firestore";
 
 // Your web app's Firebase configuration
 const firebaseConfig = {
-    apiKey: "AIzaSyAldb4tpL1Z4KQZHvAiwhB_AMWVu4FE03U",
-    authDomain: "js-firebase-twitter-clone.firebaseapp.com",
-    projectId: "js-firebase-twitter-clone",
-    storageBucket: "js-firebase-twitter-clone.appspot.com",
-    messagingSenderId: "127239359558",
-    appId: "1:127239359558:web:e1f61ae79ec3b99ad5ce47"
+    apiKey: process.env.NEXT_PUBLIC_apiKey,
+    authDomain: process.env.NEXT_PUBLIC_authDomain,
+    projectId: process.env.NEXT_PUBLIC_projectId,
+    storageBucket: process.env.NEXT_PUBLIC_storageBucket,
+    messagingSenderId: process.env.NEXT_PUBLIC_messagingSenderId,
+    appId: process.env.NEXT_PUBLIC_appId
 };
 
 // Initialize Firebase
