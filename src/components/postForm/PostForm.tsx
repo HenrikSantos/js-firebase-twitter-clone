@@ -4,10 +4,22 @@ import React, { useEffect, useRef, useState } from "react";
 import profileImage from "../../../public/profile-default.svg";
 import Image from "next/image";
 import addPost from "@/api/addPost";
+import { auth } from "@/firebase";
+import { User, onAuthStateChanged } from "firebase/auth";
 
 export default function PostForm() {
     const [textArea, setTextArea] = useState("");
+    const [user, setUser] = useState<User | null>();
+
     const textAreaRef = useRef<HTMLTextAreaElement>(null);
+
+    useEffect(() => {
+        const unsubscribe = onAuthStateChanged(auth, (currentUser) => {
+            setUser(currentUser);
+        });
+
+        return () => unsubscribe();
+    }, []);
 
     useEffect(() => {
         if (textAreaRef.current) {
@@ -28,7 +40,7 @@ export default function PostForm() {
  
     return (
         <form className="flex w-full gap-3 border p-3 ">
-            <Image className="self-start" src={profileImage} alt="profile image" width={40} height={40} />
+            <Image className="w-10 self-start" src={user?.photoURL || profileImage} alt="profile image of this post" width={40} height={40}/>
             <section className="flex w-full flex-col gap-3">
                 <textarea 
                     id="postText"
