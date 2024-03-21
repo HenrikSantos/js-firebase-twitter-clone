@@ -18,13 +18,14 @@ export default function Feed() {
                 itemsArr.push({ 
                     id: doc.id,
                     postText: doc.data().postText,
-                    userImage: doc.data().user?.photoURL,
-                    userName: doc.data().user?.displayName,
-                    date: doc.data().createdAt
+                    userImage: doc.data().user.photoURL,
+                    userName: doc.data().user.displayName,
+                    date: doc.data().createdAt,
+                    comments: doc.data().comments
                 });
             });
 
-            itemsArr.sort((a, b) => a.date && b.date ? b.date.seconds - a.date.seconds : 0);
+            itemsArr.sort((a, b) => b.date - a.date);
 
             setPosts(itemsArr);
         });
@@ -33,10 +34,8 @@ export default function Feed() {
     }, []);
 
     return (
-        <section>
-            {posts?.map(el => 
-                <PostCard key={el.id} id={el.id} postText={el.postText} userImage={el.userImage} userName={el.userName}/>
-            )}
+        <section className="mb-5">
+            {posts?.map(el => <PostCard key={el.id} post={el} />)}
         </section>
     );
 }
