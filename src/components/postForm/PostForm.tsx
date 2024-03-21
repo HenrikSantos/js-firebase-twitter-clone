@@ -39,7 +39,7 @@ export default function PostForm() {
     }
  
     return (
-        <form className="flex w-full gap-3 border p-3 ">
+        <form className="my-5 flex w-full gap-3 rounded-md border border-white/40 p-3">
             <Image className="w-10 self-start" src={user?.photoURL || profileImage} alt="profile image of this post" width={40} height={40}/>
             <section className="flex w-full flex-col gap-3">
                 <textarea 
