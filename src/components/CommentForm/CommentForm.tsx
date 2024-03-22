@@ -31,7 +31,7 @@ export default function CommentForm({ id }: {id: string}) {
             <section className="flex items-center justify-between gap-3">
                 <textarea 
                     id="postText"
-                    className="h-5 w-full resize-none overflow-auto border-none bg-black text-white outline-none" 
+                    className="h-5 w-full resize-none overflow-auto border-none pl-3 text-white outline-none" 
                     name="postText"
                     maxLength={280}
                     placeholder="Postar sua resposta"

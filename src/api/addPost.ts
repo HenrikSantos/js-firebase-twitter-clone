@@ -15,6 +15,7 @@ export default async function addPost(textArea: string) {
                     email: user.email,
                     photoURL: user.photoURL
                 },
+                hearts: 0,
                 comments: []
             });
         }

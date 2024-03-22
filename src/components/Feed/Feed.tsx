@@ -21,7 +21,8 @@ export default function Feed() {
                     userImage: doc.data().user.photoURL,
                     userName: doc.data().user.displayName,
                     date: doc.data().createdAt,
-                    comments: doc.data().comments
+                    comments: doc.data().comments,
+                    hearts: doc.data().hearts
                 });
             });
 

@@ -44,7 +44,7 @@ export default function PostForm() {
             <section className="flex w-full flex-col gap-3">
                 <textarea 
                     id="postText"
-                    className="h-5 w-full resize-none overflow-auto border-none bg-black text-white outline-none" 
+                    className="h-5 w-full resize-none overflow-auto border-none text-white outline-none" 
                     name="postText"
                     maxLength={280}
                     placeholder="O que está acontecendo?"
@@ -53,7 +53,7 @@ export default function PostForm() {
                     onChange={handleChange}
                 />
 
-                <hr />
+                <hr className="border-white/60" />
 
                 <section className="flex items-center justify-end gap-3">
                     <p className={`font-light ${textArea.length === 280 ? "text-red-600" : "" }`}>{textArea.length}/280</p>
