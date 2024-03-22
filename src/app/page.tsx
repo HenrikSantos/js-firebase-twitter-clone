@@ -1,4 +1,4 @@
-import PostForm from "@/components/bug/PostForm";
+import PostForm from "@/components/PostForm/PostForm";
 import Feed from "@/components/Feed/Feed";
 import Login from "@/components/Login/Login";
 import React from "react";
