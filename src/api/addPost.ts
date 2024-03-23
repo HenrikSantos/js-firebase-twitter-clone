@@ -1,10 +1,9 @@
-import db, { auth } from "@/firebase";
+import db from "@/firebase";
+import { User } from "firebase/auth";
 import { addDoc, collection, serverTimestamp  } from "firebase/firestore";
 
-export default async function addPost(textArea: string) {
+export default async function addPost(textArea: string, user: User) {
     try {
-        const user = auth.currentUser;
-
         if (user) {
             await addDoc(collection(db, "posts"), {
                 postText: textArea,

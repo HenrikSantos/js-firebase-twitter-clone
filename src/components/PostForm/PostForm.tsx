@@ -4,22 +4,14 @@ import React, { useEffect, useRef, useState } from "react";
 import profileImage from "../../../public/profile-default.svg";
 import Image from "next/image";
 import addPost from "@/api/addPost";
-import { auth } from "@/firebase";
-import { User, onAuthStateChanged } from "firebase/auth";
+import { store } from "@/zustand/store";
+import { useStore } from "zustand";
 
 export default function PostForm() {
     const [textArea, setTextArea] = useState("");
-    const [user, setUser] = useState<User | null>();
+    const { user } = useStore(store);
 
     const textAreaRef = useRef<HTMLTextAreaElement>(null);
-
-    useEffect(() => {
-        const unsubscribe = onAuthStateChanged(auth, (currentUser) => {
-            setUser(currentUser);
-        });
-
-        return () => unsubscribe();
-    }, []);
 
     useEffect(() => {
         if (textAreaRef.current) {
@@ -33,8 +25,8 @@ export default function PostForm() {
     }
 
     async function handlePost() {
-        if (textArea.length >= 281 || textArea.length === 0) return;
-        addPost(textArea);
+        if (textArea.length >= 281 || textArea.length === 0 || !user) return;
+        addPost(textArea, user);
         setTextArea("");
     }
  

@@ -1,21 +1,19 @@
 "use client";
 
-import React, { useEffect, useState } from "react";
+import React, { useEffect } from "react";
 import { auth, googleProvider } from "@/firebase";
-import { User, signInWithPopup, signOut, onAuthStateChanged } from "firebase/auth";
+import { signInWithPopup, signOut } from "firebase/auth";
 import "./Login.css";
 import Image from "next/image";
+import { useStore } from "zustand";
+import { store } from "@/zustand/store";
 
 export default function Login() {
-    const [user, setUser] = useState<User | null>(null);
+    const { user, fetchUsers } = useStore(store);
 
     useEffect(() => {
-        const unsubscribe = onAuthStateChanged(auth, (currentUser) => {
-            setUser(currentUser);
-        });
-
-        return () => unsubscribe();
-    }, []);
+        fetchUsers();
+    }, [fetchUsers]);
     
     const signInWithGoogle = async() => {
         try {
@@ -42,10 +40,22 @@ export default function Login() {
                             <Image className="" src={user.photoURL || ""} alt="foto do usuário logado" width={40} height={40}/>
                             <p>{user.displayName}</p>
                         </section>
-                        <button className="rounded-md border px-2 hover:bg-white/30 md:self-start" type="button" onClick={logOut}>logout</button>
+                        <button 
+                            className="rounded-md border px-2 hover:bg-white/30 md:self-start" 
+                            type="button" 
+                            onClick={logOut}
+                        >
+                            logout
+                        </button>
                     </>
                     : 
-                    <button className="rounded-md border px-2 hover:bg-white/30" type="button" onClick={signInWithGoogle}>Login</button>
+                    <button 
+                        className="rounded-md border px-2 hover:bg-white/30" 
+                        type="button" 
+                        onClick={signInWithGoogle}
+                    >
+                        Login
+                    </button>
                 }
             </section>
         </>

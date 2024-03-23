@@ -1,12 +1,11 @@
-import { IPostCard } from "@/components/PostCard/PostCard";
-import db, { auth } from "@/firebase";
+import { IPostCard } from "@/interface/IPostCard";
+import db from "@/firebase";
 import { doc, getDoc, updateDoc } from "firebase/firestore";
+import { User } from "firebase/auth";
 
-export default async function addHeart(id: string) {
+export default async function addHeart(id: string, user: User) {
     const docRef = doc(db, "posts", id);
     const docSnap = await getDoc(docRef);
-
-    const user = auth.currentUser;
 
     if (docSnap.exists() && user) {
         const postData = docSnap.data() as IPostCard;

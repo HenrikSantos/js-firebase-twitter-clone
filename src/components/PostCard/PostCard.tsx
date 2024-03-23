@@ -5,59 +5,47 @@ import profileImage from "../../../public/profile-default.svg";
 import CommentForm from "../CommentForm/CommentForm";
 import heartsImage from "@../../../public/heart.svg";
 import addHeart from "@/api/addHeart";
+import { IPostCard } from "@/interface/IPostCard";
+import { useStore } from "zustand";
+import { store } from "@/zustand/store";
 
-export interface IComment {
-    commentText: string,
-    date: number,
-    userImage: string,
-    userName: string
-}
+export default function PostCard({ post: { id, postText, photoURL, displayName, comments, hearts } }: {post: IPostCard}) {
+    const { user } = useStore(store);
 
-export interface IPostCard {
-    id: string,
-    postText: string,
-    userImage: string,
-    userName: string,
-    date: number,
-    comments: IComment[],
-    hearts: number
-}
-
-export default function PostCard({ post }: {post: IPostCard}) {
     function handleHeart() {
-        addHeart(post.id);
+        if (user) addHeart(id, user);
     }
 
     return (
-        <section className="my-3 space-y-3 rounded-md border border-white/30 p-3" id={post.id}>
+        <section className="my-3 space-y-3 rounded-md border border-white/30 p-3" id={id}>
             <section className="flex flex-wrap gap-3 ">
                 <section>
-                    <Image className="w-10 self-start" src={post.userImage || profileImage} alt="profile image of this post" width={40} height={40}/>
+                    <Image className="w-10 self-start" src={photoURL || profileImage} alt="profile image of this post" width={40} height={40}/>
                     <section className="flex items-center gap-1">
-                        {post.hearts}
+                        {hearts}
                         <button type="button" onClick={handleHeart}>
                             <Image className="" src={heartsImage} alt="profile image of this post" width={15} height={15}/>
                         </button>
                     </section>
                 </section>
                 <section className="w-10/12">
-                    <p className="font-bold hover:cursor-pointer hover:underline">{post.userName}</p>
-                    <p className="break-words">{post.postText}</p>
+                    <p className="font-bold hover:cursor-pointer hover:underline">{displayName}</p>
+                    <p className="break-words">{postText}</p>
                 </section>
             </section>
-            {post.comments.length > 0 && 
+            {comments.length > 0 && 
                 <hr className="border-white/30" />
             }
-            {post.comments.map(comment =>
-                <section className="flex gap-3 pl-3" key={comment.date}>
-                    <Image className="w-10 self-start" src={comment.userImage || profileImage} alt="profile image of this post" width={40} height={40}/>
+            {comments.map(comment =>
+                <section className="flex gap-3 pl-3" key={comment.createdAt}>
+                    <Image className="w-10 self-start" src={comment.photoURL || profileImage} alt="profile image of this post" width={40} height={40}/>
                     <section className="w-11/12">
-                        <p className="font-bold hover:cursor-pointer hover:underline">{comment.userName || "unknow"}</p>
+                        <p className="font-bold hover:cursor-pointer hover:underline">{comment.displayName || "unknow"}</p>
                         <p className="break-words">{comment.commentText}</p>
                     </section>
                 </section>
             )}
-            <CommentForm id={post.id} />
+            <CommentForm id={id} />
         </section>
     );
 }

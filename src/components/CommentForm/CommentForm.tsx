@@ -3,9 +3,12 @@
 import React, { useEffect, useRef, useState } from "react";
 import "./CommentForm.css";
 import addComment from "@/api/addComment";
+import { store } from "@/zustand/store";
+import { useStore } from "zustand";
 
 export default function CommentForm({ id }: {id: string}) {
     const [textArea, setTextArea] = useState("");
+    const { user } = useStore(store);
 
     const textAreaRef = useRef<HTMLTextAreaElement>(null);
 
@@ -21,8 +24,10 @@ export default function CommentForm({ id }: {id: string}) {
     }
 
     function handleAddComment() {
-        addComment(id, textArea);
-        setTextArea("");
+        if (user) {
+            addComment(id, textArea, user);
+            setTextArea("");
+        } else window.alert("You must be logged in to comment");
     }
 
     return (

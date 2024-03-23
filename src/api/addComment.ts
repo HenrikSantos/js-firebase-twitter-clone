@@ -1,12 +1,11 @@
-import { IPostCard } from "@/components/PostCard/PostCard";
-import db, { auth } from "@/firebase";
+import { IPostCard } from "@/interface/IPostCard";
+import db from "@/firebase";
 import { doc, getDoc, updateDoc } from "firebase/firestore";
+import { User } from "firebase/auth";
 
-export default async function addComment(id: string, commentText: string) {
+export default async function addComment(id: string, commentText: string, user: User) {
     const docRef = doc(db, "posts", id);
     const docSnap = await getDoc(docRef);
-
-    const user = auth.currentUser;
 
     if (docSnap.exists() && user) {
         const postData = docSnap.data() as IPostCard;
@@ -14,9 +13,9 @@ export default async function addComment(id: string, commentText: string) {
 
         data.push({
             commentText: commentText,
-            date: Date.now(),
-            userImage: user.photoURL!,
-            userName: user.displayName!
+            createdAt: Date.now(),
+            photoURL: user.photoURL!,
+            displayName: user.displayName!
         });
         
         try {
