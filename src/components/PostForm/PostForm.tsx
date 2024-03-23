@@ -20,10 +20,6 @@ export default function PostForm() {
         }
     }, [textArea]);
 
-    function handleChange(event: React.ChangeEvent<HTMLTextAreaElement>) {
-        setTextArea(event.target.value);
-    }
-
     async function handlePost() {
         if (textArea.length >= 281 || textArea.length === 0 || !user) return;
         addPost(textArea, user);
@@ -42,7 +38,7 @@ export default function PostForm() {
                     placeholder="O que está acontecendo?"
                     value={textArea}
                     ref={textAreaRef}
-                    onChange={handleChange}
+                    onChange={(event: React.ChangeEvent<HTMLTextAreaElement>) => setTextArea(event.target.value)}
                 />
 
                 <hr className="border-white/60" />

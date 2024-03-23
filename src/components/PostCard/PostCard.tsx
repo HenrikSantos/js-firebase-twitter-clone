@@ -1,5 +1,4 @@
 import React from "react";
-import "./PostCard.css";
 import Image from "next/image";
 import profileImage from "../../../public/profile-default.svg";
 import CommentForm from "../CommentForm/CommentForm";

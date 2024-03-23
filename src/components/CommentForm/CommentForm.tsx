@@ -1,7 +1,6 @@
 "use client";
 
 import React, { useEffect, useRef, useState } from "react";
-import "./CommentForm.css";
 import addComment from "@/api/addComment";
 import { store } from "@/zustand/store";
 import { useStore } from "zustand";
@@ -18,10 +17,6 @@ export default function CommentForm({ id }: {id: string}) {
             textAreaRef.current.style.height = `${textAreaRef.current.scrollHeight}px`;
         }
     }, [textArea]);
-    
-    function handleChange(event: React.ChangeEvent<HTMLTextAreaElement>) {
-        setTextArea(event.target.value);
-    }
 
     function handleAddComment() {
         if (user) {
@@ -42,7 +37,7 @@ export default function CommentForm({ id }: {id: string}) {
                     placeholder="Postar sua resposta"
                     value={textArea}
                     ref={textAreaRef}
-                    onChange={handleChange}
+                    onChange={(event: React.ChangeEvent<HTMLTextAreaElement>) => setTextArea(event.target.value)}
                 />
                 <p
                     className={`self-end font-light ${textArea.length === 280 ? "text-red-600" : "" }`}
@@ -54,7 +49,7 @@ export default function CommentForm({ id }: {id: string}) {
                     type="button"
                     onClick={handleAddComment}
                 >
-                        Comentar
+                    Comentar
                 </button>
             </section>
         </>

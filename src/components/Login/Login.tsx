@@ -3,7 +3,6 @@
 import React, { useEffect } from "react";
 import { auth, googleProvider } from "@/firebase";
 import { signInWithPopup, signOut } from "firebase/auth";
-import "./Login.css";
 import Image from "next/image";
 import { useStore } from "zustand";
 import { store } from "@/zustand/store";
