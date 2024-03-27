@@ -30,6 +30,6 @@
       ],
       "func-call-spacing": ["error", "never"],
       "eol-last": ["error", "always"]
-    },
+    }
   }
   

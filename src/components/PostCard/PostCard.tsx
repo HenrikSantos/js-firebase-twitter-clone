@@ -2,7 +2,7 @@ import React from "react";
 import Image from "next/image";
 import profileImage from "../../../public/profile-default.svg";
 import CommentForm from "../CommentForm/CommentForm";
-import heartsImage from "@../../../public/heart.svg";
+import heartsImage from "../../../public/heart.svg";
 import addHeart from "@/api/addHeart";
 import { IPostCard } from "@/interface/IPostCard";
 import { useStore } from "zustand";
@@ -16,13 +16,13 @@ export default function PostCard({ post: { id, postText, photoURL, displayName, 
     }
 
     return (
-        <section className="my-3 space-y-3 rounded-md border border-white/30 p-3" id={id}>
+        <section className="my-3 space-y-3 rounded-md border border-white/30 p-3" data-testid={id} id={id}>
             <section className="flex flex-wrap gap-3 ">
                 <section>
                     <Image className="w-10 self-start" src={photoURL || profileImage} alt="profile image of this post" width={40} height={40}/>
                     <section className="flex items-center gap-1">
-                        {hearts}
-                        <button type="button" onClick={handleHeart}>
+                        <p data-testid={"hearts"}>{hearts}</p>
+                        <button type="button" onClick={handleHeart} data-testid={`handleHeartButton${id}`}>
                             <Image className="" src={heartsImage} alt="profile image of this post" width={15} height={15}/>
                         </button>
                     </section>
@@ -33,7 +33,7 @@ export default function PostCard({ post: { id, postText, photoURL, displayName, 
                 </section>
             </section>
             {comments.length > 0 && 
-                <hr className="border-white/30" />
+                <hr data-testid={"hrShowing"} className="border-white/30" />
             }
             {comments.map(comment =>
                 <section className="flex gap-3 pl-3" key={comment.createdAt}>

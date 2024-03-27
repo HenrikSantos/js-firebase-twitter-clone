@@ -13,7 +13,7 @@ export default function Feed() {
     }, [fetchPosts]);
 
     return (
-        <section className="mb-5">
+        <section data-testid="feed" className="mb-5">
             {posts?.map(el => <PostCard key={el.id} post={el} />)}
         </section>
     );
