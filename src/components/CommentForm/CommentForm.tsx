@@ -31,20 +31,26 @@ export default function CommentForm({ id }: { id: string }) {
             <section className="flex items-center justify-between gap-3">
                 <textarea
                     id="postText"
+                    data-testid={"CommentTextArea"}
                     className="h-5 w-full resize-none overflow-auto border-none pl-3 text-white outline-none"
                     name="postText"
                     maxLength={280}
                     placeholder="Postar sua resposta"
                     value={textArea}
                     ref={textAreaRef}
-                    onChange={(event: React.ChangeEvent<HTMLTextAreaElement>) => setTextArea(event.target.value)}
+                    onChange={(event: React.ChangeEvent<HTMLTextAreaElement>) => {
+                        if (event.target.value.length > 280) return;
+                        setTextArea(event.target.value);
+                    }}
                 />
                 <p
                     className={`self-end font-light ${textArea.length === 280 ? "text-red-600" : ""}`}
+                    data-testid={"textLegthCounter"}
                 >
                     {textArea.length}/280
                 </p>
                 <button
+                    data-testid={"addCommentBtn"}
                     className="self-end rounded-full bg-blue-500/95 px-3 py-1 font-semibold text-white hover:bg-blue-600/95"
                     type="button"
                     onClick={handleAddComment}
