@@ -48,15 +48,28 @@ describe("CommentForm", () => {
         expect(textArea).toHaveValue("Hello World!");
         expect(screen.getByTestId("textLegthCounter")).toHaveTextContent("12/280");
 
+        const fullValue = "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa";
+
         fireEvent.change(textArea,
             {
                 target: {
-                    value: "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"
+                    value: fullValue,
                 }
             }
         );
 
         expect(screen.getByTestId("textLegthCounter")).toHaveTextContent("280/280");
+
+        fireEvent.change(textArea,
+            {
+                target: {
+                    value: `${fullValue}a`,
+                }
+            }
+        );
+
+        expect(screen.getByTestId("textLegthCounter")).toHaveTextContent("280/280");
+        expect(textArea).toHaveValue(fullValue);
     });
 
     test("Should call addComment function with id, text and user", () => {
