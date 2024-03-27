@@ -5,7 +5,7 @@ import addComment from "@/api/addComment";
 import { store } from "@/zustand/store";
 import { useStore } from "zustand";
 
-export default function CommentForm({ id }: {id: string}) {
+export default function CommentForm({ id }: { id: string }) {
     const [textArea, setTextArea] = useState("");
     const { user } = useStore(store);
 
@@ -29,9 +29,9 @@ export default function CommentForm({ id }: {id: string}) {
         <>
             <hr className="border-white/30" />
             <section className="flex items-center justify-between gap-3">
-                <textarea 
+                <textarea
                     id="postText"
-                    className="h-5 w-full resize-none overflow-auto border-none pl-3 text-white outline-none" 
+                    className="h-5 w-full resize-none overflow-auto border-none pl-3 text-white outline-none"
                     name="postText"
                     maxLength={280}
                     placeholder="Postar sua resposta"
@@ -40,7 +40,7 @@ export default function CommentForm({ id }: {id: string}) {
                     onChange={(event: React.ChangeEvent<HTMLTextAreaElement>) => setTextArea(event.target.value)}
                 />
                 <p
-                    className={`self-end font-light ${textArea.length === 280 ? "text-red-600" : "" }`}
+                    className={`self-end font-light ${textArea.length === 280 ? "text-red-600" : ""}`}
                 >
                     {textArea.length}/280
                 </p>
