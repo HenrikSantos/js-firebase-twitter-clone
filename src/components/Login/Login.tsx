@@ -13,19 +13,19 @@ export default function Login() {
     useEffect(() => {
         fetchUsers();
     }, [fetchUsers]);
-    
-    const signInWithGoogle = async() => {
+
+    const signInWithGoogle = async () => {
         try {
-            await signInWithPopup(auth,googleProvider);
-        } catch (err){
+            await signInWithPopup(auth, googleProvider);
+        } catch (err) {
             console.error(err);
         }
     };
 
-    const logOut = async() => {
+    const logOut = async () => {
         try {
             await signOut(auth);
-        } catch (err){
+        } catch (err) {
             console.error(err);
         }
     };
@@ -33,24 +33,26 @@ export default function Login() {
     return (
         <>
             <section className={`${user ? "" : "border-none"} flex items-center justify-between p-3 md:fixed md:right-5 md:top-5 md:gap-3 md:rounded-md md:border`}>
-                {user ? 
+                {user ?
                     <>
                         <section className="flex items-start gap-3">
-                            <Image className="" src={user.photoURL || ""} alt="foto do usuário logado" width={40} height={40}/>
-                            <p>{user.displayName}</p>
+                            <Image data-testid={"userImage"} src={user.photoURL || ""} alt="foto do usuário logado" width={40} height={40} />
+                            <p data-testid={"userName"}>{user.displayName}</p>
                         </section>
-                        <button 
-                            className="rounded-md border px-2 hover:bg-white/30 md:self-start" 
-                            type="button" 
+                        <button
+                            data-testid={"logout"}
+                            className="rounded-md border px-2 hover:bg-white/30 md:self-start"
+                            type="button"
                             onClick={logOut}
                         >
                             logout
                         </button>
                     </>
-                    : 
-                    <button 
-                        className="rounded-md border px-2 hover:bg-white/30" 
-                        type="button" 
+                    :
+                    <button
+                        data-testid={"loginBtn"}
+                        className="rounded-md border px-2 hover:bg-white/30"
+                        type="button"
                         onClick={signInWithGoogle}
                     >
                         Login
