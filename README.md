@@ -18,7 +18,10 @@ Este é um projeto de clone do Twitter desenvolvido utilizando Firestore, Next.j
 - **Tailwind CSS:** Um framework CSS utilitário que permite criar designs bonitos e responsivos de forma rápida, utilizado para estilizar a interface do usuário.
 - **Firebase Authentication:** Um serviço oferecido pela Firebase para autenticação de usuários, utilizado para autenticar os usuários via login do Google.
 
+## Implantação
+** O aplicativo frontend está implantado na Vercel em [https://js-firebase-twitter-clone.vercel.app/](https://js-firebase-twitter-clone.vercel.app/).
 
+## Testes
 1. **Instalação das Dependências:**
    ```bash
    npm install
@@ -28,7 +31,7 @@ Este é um projeto de clone do Twitter desenvolvido utilizando Firestore, Next.j
    ```bash
    npm test
    ```
-   
+
    ```bash
    npm run test:coverage
    ```
